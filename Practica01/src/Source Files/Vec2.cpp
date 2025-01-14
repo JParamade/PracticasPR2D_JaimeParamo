@@ -93,7 +93,7 @@ CVec2 CVec2::Normalized() const {
 }
 
 CVec2 CVec2::Abs() const {
-    return {m_fX >= 0 ? m_fX : -m_fX, m_fY >= 0 ? m_fY : -m_fY};
+    return {m_fX < 0 ? -m_fX : m_fX, m_fY < 0 ? -m_fY : m_fY};
 }
 
 float CVec2::Dot(const CVec2& _rOther) const {
