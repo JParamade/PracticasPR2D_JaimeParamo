@@ -51,8 +51,6 @@ int main() {
     double dLastTime = glfwGetTime();
 
     while (!glfwWindowShouldClose(pCurrentWindow)) {
-        glfwPollEvents();
-        
         dCurrentTime = glfwGetTime();
         dDeltaTime = dCurrentTime - dLastTime;
         dLastTime = dCurrentTime;
@@ -120,6 +118,7 @@ int main() {
         glfwSetWindowTitle(pCurrentWindow, sWindowTitle.str().c_str());
         
         glfwSwapBuffers(pCurrentWindow);
+        glfwPollEvents();
     }
 
     glfwTerminate();
