@@ -101,11 +101,11 @@ float CVec2::Dot(const CVec2& _rOther) const {
 }
 
 float CVec2::Angle(const CVec2& _rOther) const {
-    return acos(Dot(_rOther) / (Magnitude() * _rOther.Magnitude()));
+    return atan2(_rOther.m_fY - m_fY, _rOther.m_fX - m_fX);
 }
 
 float CVec2::Distance(const CVec2& _rOther) const {
-    return sqrt((m_fX - _rOther.m_fX) * (m_fX - _rOther.m_fX) + (m_fY - _rOther.m_fY) * (m_fY - _rOther.m_fY));
+    return sqrt((_rOther.m_fX - m_fX) * (_rOther.m_fX - m_fX) + (_rOther.m_fY - m_fY) * (_rOther.m_fY - m_fY));
 }
 
 CVec2& CVec2::Add(const CVec2& _rOther) {
