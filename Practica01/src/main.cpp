@@ -81,6 +81,8 @@ int main() {
                       uFigureSize, uFigureSize);
         CVec2 oOvalPos = CVec2(static_cast<float>(dMousePosX) + fOvalDistance * cos(fOvalAngle) - static_cast<float>(uFigureSize) / 2,
                                static_cast<float>(dMousePosY) + fOvalDistance * sin(fOvalAngle) - static_cast<float>(uFigureSize) / 2);
+        CVec2 oMouseToOval = oOvalPos - oMousePos;
+        CVec2 oHorizontalVector = CVec2(1.0f , 0.0f);
         fOvalAngle += fAngularSpeed * static_cast<float>(dDeltaTime);
         if (fOvalAngle > 2 * M_PI) fOvalAngle = 0.0f;
         
@@ -114,7 +116,7 @@ int main() {
 
         // Change window title to current distance and angle.
         ostringstream sWindowTitle;
-        sWindowTitle << "Distance: " << StringFromNumber(oMousePos.Distance(oScreenCenter)) << " - Angle: " << StringFromNumber(oMousePos.Angle(oOvalPos) * 180.0f / M_PI) << " - JPB";
+        sWindowTitle << "Distance: " << StringFromNumber(oMousePos.Distance(oScreenCenter)) << " - Angle: " << StringFromNumber(oHorizontalVector.Angle(oMouseToOval) * 180.0f / M_PI) << " - JPB";
         glfwSetWindowTitle(pCurrentWindow, sWindowTitle.str().c_str());
         
         glfwSwapBuffers(pCurrentWindow);
