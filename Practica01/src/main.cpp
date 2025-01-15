@@ -21,13 +21,13 @@ string StringFromNumber(T oValue) {
 
 int main() {
     if (!glfwInit()) {
-        printf("Error initializing GLFW.\n");
+        static_cast<void>(fprintf(stderr, "Error initializing GLFW.\n"));
         return -1;
     }
 
     GLFWwindow* pCurrentWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "", nullptr, nullptr);
     if (!pCurrentWindow) {
-        printf("Error creating GLFW window.\n");
+        static_cast<void>(fprintf(stderr,"Error creating GLFW window.\n"));
         glfwTerminate();
         return -1;
     }
