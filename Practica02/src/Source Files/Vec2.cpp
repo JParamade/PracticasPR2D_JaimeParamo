@@ -80,6 +80,22 @@ bool CVec2::operator!=(const CVec2& _rOther) const {
 
 // Methods
 
+float CVec2::GetX() const {
+    return m_fX;
+}
+
+float CVec2::GetY() const {
+    return m_fY;
+}
+
+void CVec2::SetX(float _fValue) {
+    m_fX = _fValue;
+}
+
+void CVec2::SetY(float _fValue) {
+    m_fY = _fValue;
+} 
+
 float CVec2::Magnitude() const {
     return sqrt(m_fX * m_fX + m_fY * m_fY);
 }

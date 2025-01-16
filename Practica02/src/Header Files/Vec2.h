@@ -25,6 +25,11 @@ public:
     bool operator!=(const CVec2& _rOther) const;
 
     // Methods
+    float GetX() const;
+    float GetY() const;
+    void SetX(float _fValue);
+    void SetY(float _fValue);
+    
     float Magnitude() const;
     CVec2& Normalize();
     CVec2 Normalized() const;
