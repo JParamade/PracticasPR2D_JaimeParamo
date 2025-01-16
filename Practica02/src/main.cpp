@@ -10,8 +10,8 @@
 
 using namespace std;
 
-constexpr unsigned int WINDOW_WIDTH = 1900u;
-constexpr unsigned int WINDOW_HEIGHT = 1000u;
+constexpr unsigned int WINDOW_WIDTH = 1200u;
+constexpr unsigned int WINDOW_HEIGHT = 800u;
 
 ltex_t* LoadTexture(const char* _sFilename) {
 	int iWidth, iHeight;
@@ -60,28 +60,28 @@ int main() {
 	// Transform Values
 	double iMouseX, iMouseY;
 	CVec2 vFireSize(static_cast<float>(pFireTexture->width), static_cast<float>(pFireTexture->height));
-	float fFireAngles = 0.0f;
 	
 	// Time Variables
-	double dCurrentTime = 0.0f;
-	double dDeltaTime = 0.0f;
 	double dLastTime = glfwGetTime();
 	double dElapsedTime = glfwGetTime();
 	
 	while (!glfwWindowShouldClose(pWindow)) {
-		dCurrentTime = glfwGetTime();
-		dDeltaTime = dCurrentTime - dLastTime;
+		double dCurrentTime = glfwGetTime();
+		double dDeltaTime = dCurrentTime - dLastTime;
 		dLastTime = dCurrentTime;
 		dElapsedTime += dDeltaTime;
 
 		glfwGetCursorPos(pWindow, &iMouseX, &iMouseY);
 
+		lgfx_clearcolorbuffer(0.0f, 0.0f, 0.0f);
+		lgfx_setcolor(1.0f, 1.0f, 1.0f, 1.0f);
+		
 		// Draw wall texture with solid blending.
 		lgfx_setblend(BLEND_SOLID);
 		ltex_drawrotsized(pWallTexture, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f,  WINDOW_WIDTH / static_cast<float>(pWallTexture->width), WINDOW_HEIGHT / static_cast<float>(pWallTexture->height));
 
 		// Calculate desired angle and size value with ping-pong function (sin).
-		fFireAngles = 10.0f * sin(static_cast<float>(M_PI) * static_cast<float>(dElapsedTime));
+		float fFireAngles = 10.0f * sin(static_cast<float>(M_PI) * static_cast<float>(dElapsedTime));
 		vFireSize.SetX((1.0f + 0.2f * sin(static_cast<float>(2.5f * M_PI) * static_cast<float>(dElapsedTime))) * static_cast<float>(pFireTexture->width));
 		vFireSize.SetY((1.0f + 0.2f * sin(static_cast<float>(2.5f * M_PI) * static_cast<float>(dElapsedTime))) * static_cast<float>(pFireTexture->height));
 		// Draw fire texture with additive blending.
@@ -95,6 +95,24 @@ int main() {
 		// Draw light texture with multiply blending.
 		lgfx_setblend(BLEND_MUL);
 		ltex_drawrotsized(pLightTexture, static_cast<float>(iMouseX), static_cast<float>(iMouseY), 0.0f, 0.5f, 0.5f, static_cast<float>(pLightTexture->width), static_cast<float>(pLightTexture->height), 0.0f, 0.0f, 1.0f, 1.0f);
+		// Draw left border.
+		lgfx_setcolor(0.0f, 0.0f, 0.0f, 1.0f);
+		lgfx_setblend(BLEND_SOLID);
+		lgfx_drawrect(0, static_cast<float>(iMouseY) - static_cast<float>(pLightTexture->height) / 2, static_cast<float>(iMouseX) - static_cast<float>(pLightTexture->width) / 2, static_cast<float>(pLightTexture->height));
+		// Draw right border.
+		lgfx_drawrect(static_cast<float>(iMouseX) + static_cast<float>(pLightTexture->width) / 2, static_cast<float>(iMouseY) - static_cast<float>(pLightTexture->height) / 2, WINDOW_WIDTH - (static_cast<float>(iMouseX) + static_cast<float>(pLightTexture->width) / 2), static_cast<float>(pLightTexture->height));
+		// Draw upper border.
+		lgfx_drawrect(static_cast<float>(iMouseX) - static_cast<float>(pLightTexture->width) / 2, 0, static_cast<float>(pLightTexture->width), static_cast<float>(iMouseY) - static_cast<float>(pLightTexture->height) / 2);
+		// Draw lower border.
+		lgfx_drawrect(static_cast<float>(iMouseX) - static_cast<float>(pLightTexture->width) / 2, static_cast<float>(iMouseY) + static_cast<float>(pLightTexture->height) / 2, static_cast<float>(pLightTexture->width), WINDOW_HEIGHT - (static_cast<float>(iMouseY) + static_cast<float>(pLightTexture->height) / 2));
+		// Draw upper-left corner.
+		lgfx_drawrect(0, 0, static_cast<float>(iMouseX) - static_cast<float>(pLightTexture->width) / 2, static_cast<float>(iMouseY) - static_cast<float>(pLightTexture->height) / 2);
+		// Draw upper-right corner.
+		lgfx_drawrect(static_cast<float>(iMouseX) + static_cast<float>(pLightTexture->width) / 2, 0, WINDOW_WIDTH - (static_cast<float>(iMouseX) + static_cast<float>(pLightTexture->width) / 2), static_cast<float>(iMouseY) - static_cast<float>(pLightTexture->height) / 2);
+		// Draw lower-left corner.
+		lgfx_drawrect(0, static_cast<float>(iMouseY) + static_cast<float>(pLightTexture->height) / 2, static_cast<float>(iMouseX) - static_cast<float>(pLightTexture->width) / 2, WINDOW_HEIGHT - (static_cast<float>(iMouseY) + static_cast<float>(pLightTexture->height) / 2));
+		// Draw lower-right corner.
+		lgfx_drawrect(static_cast<float>(iMouseX) + static_cast<float>(pLightTexture->width) / 2, static_cast<float>(iMouseY) + static_cast<float>(pLightTexture->height) / 2, WINDOW_WIDTH - (static_cast<float>(iMouseX) + static_cast<float>(pLightTexture->width) / 2), WINDOW_HEIGHT - (static_cast<float>(iMouseY) + static_cast<float>(pLightTexture->height) / 2));
 		
 		glfwSwapBuffers(pWindow);
 		glfwPollEvents();
