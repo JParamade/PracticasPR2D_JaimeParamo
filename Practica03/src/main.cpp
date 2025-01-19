@@ -1,4 +1,3 @@
-
 #define LITE_GFX_IMPLEMENTATION
 
 #include <litegfx.h>
@@ -8,8 +7,6 @@
 using namespace std;
 
 int main() {
-	
-
 		
 
     return 0;
