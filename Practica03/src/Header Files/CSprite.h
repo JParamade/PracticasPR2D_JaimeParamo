@@ -6,13 +6,13 @@
 class CSprite {
     typedef void (*CallbackFunc)(CSprite&, float);
 public:
-    CSprite(const ltex_t* _pTexture, int iHFrames = 1, int iVFrames = 1);
+    CSprite(const ltex_t* _pTexture, int _iHFrames = 1, int _iVFrames = 1);
     void SetCallback(CallbackFunc _fFunction);
 
     // Texture Data
-    const ltex_t* GetTexture() const;
     void SetUserData(void* _pData);
-    void SetTexture(const ltex_t* _pTexture, int iHFrames = 1, int iVFrames = 1);
+    const ltex_t* GetTexture() const;
+    void SetTexture(const ltex_t* _pTexture, int _iHFrames = 1, int _iVFrames = 1);
 
     // Blending Mode & Color
     lblend_t GetBlend() const;
@@ -45,4 +45,11 @@ public:
     // Execution Functions
     void Update(float _fDeltaTime);
     void Draw() const;
+private:
+    const ltex_t* m_pTexture;
+    int m_iHFrames;
+    int m_iVFrames;
+    
+    CallbackFunc m_fFunction;
+    void* m_pData;
 };
