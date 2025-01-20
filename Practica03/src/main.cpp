@@ -2,7 +2,7 @@
 
 #include <glfw3.h>
 #include <iostream>
-#include "../src/Header Files/CSprite.h"
+#include "../src/Header Files/Sprite.h"
 
 using namespace std;
 

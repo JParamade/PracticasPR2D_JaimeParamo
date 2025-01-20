@@ -1,4 +1,4 @@
-﻿#include "../Header Files/CSprite.h"
+﻿#include "../Header Files/Sprite.h"
 
 #include <cmath>
 
