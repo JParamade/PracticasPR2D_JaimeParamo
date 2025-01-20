@@ -47,13 +47,18 @@ public:
     void Draw() const;
 private:
     const ltex_t* m_pTexture;
-    int m_iHFrames;
-    int m_iVFrames;
-    
+    int m_iHFrames, m_iVFrames;
+    float m_fCurrentFrame;
+    int m_iFps;
+
     CallbackFunc m_fFunction;
     void* m_pData;
 
     lblend_t m_eMode;
     float m_fR, m_fG, m_fB, m_fA;
-    
+
+    CVec2 m_vPosition;
+    float m_fAngle;
+    CVec2 m_vScale;
+    CVec2 m_vPivot;
 };
