@@ -1,2 +1,2 @@
-#TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=10.0.15063.0
-Debug|Win32|D:\Master Prog. Videojuegos\Prog. 2D\Practicas para subir\practica1\practica1\project\|
+PlatformToolSet=v143:VCToolArchitecture=Native32Bit:VCToolsVersion=14.34.31933:TargetPlatformVersion=10.0.22000.0:
+Debug|Win32|C:\Users\jaime.paramo\Documents\PAVJ\Programacion 2D\PracticasPR2D_JaimeParamo\Practica03\project\|
