@@ -3,6 +3,24 @@
 #include "litegfx.h"
 #include "Vec2.h"
 
+class CTexture {
+private:
+    void LoadTexture(const char* _sFilename);
+    ltex_t* m_pTexture = nullptr;
+public:
+    CTexture(const char* _sFilename);
+    ~CTexture();
+    
+    CTexture(const CTexture&) = delete;
+    CTexture& operator=(const CTexture&) = delete;
+
+    CTexture(CTexture&& _rOther) noexcept;
+    CTexture& operator=(CTexture&& _rOther) noexcept;
+    
+    
+    ltex_t* GetTexture() const;
+};
+
 class CSprite {
     typedef void (*CallbackFunc)(CSprite&, float);
 public:

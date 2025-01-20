@@ -1,6 +1,56 @@
-﻿#include "../Header Files/Sprite.h"
+﻿#define STB_IMAGE_IMPLEMENTATION
 
+#include "../Header Files/Sprite.h"
+#include "stb_image.h"
 #include <cmath>
+
+void CTexture::LoadTexture(const char* _sFilename) {
+    int iWidth, iHeight;
+	
+    stbi_uc* sBuffer = stbi_load(_sFilename, &iWidth, &iHeight, nullptr, 4);
+    if (!sBuffer) {
+        static_cast<void>(fprintf(stderr, "Error: File '%s' failed to load.\n", _sFilename));
+        return;
+    }
+	
+    ltex_t* pTexture = ltex_alloc(iWidth, iHeight, 1);
+    if (!pTexture) {
+        static_cast<void>(fprintf(stderr, "Error: Texture couldn't be allocated.\n"));
+        stbi_image_free(sBuffer);
+        return;
+    }
+	
+    ltex_setpixels(pTexture, sBuffer);
+    stbi_image_free(sBuffer);
+
+    m_pTexture = pTexture;
+}
+
+CTexture::CTexture(const char* _sFilename) {
+    LoadTexture(_sFilename);
+}
+
+CTexture::~CTexture() {
+    if (m_pTexture) ltex_free(m_pTexture);  
+}
+
+CTexture::CTexture(CTexture&& _rOther) noexcept
+    : m_pTexture(_rOther.m_pTexture) {
+    _rOther.m_pTexture = nullptr;
+}
+
+CTexture& CTexture::operator=(CTexture&& _rOther) noexcept {
+    if (this != &_rOther) {
+        if (m_pTexture) ltex_free(m_pTexture);
+        m_pTexture = _rOther.m_pTexture;
+        _rOther.m_pTexture = nullptr;
+    }
+    return *this;
+}
+
+ltex_t* CTexture::GetTexture() const {
+    return m_pTexture;
+}
 
 CSprite::CSprite(const ltex_t* _pTexture, int _iHFrames, int _iVFrames)
     : m_pTexture(_pTexture)
