@@ -52,4 +52,8 @@ private:
     
     CallbackFunc m_fFunction;
     void* m_pData;
+
+    lblend_t m_eMode;
+    float m_fR, m_fG, m_fB, m_fA;
+    
 };
