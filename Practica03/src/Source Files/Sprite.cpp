@@ -18,7 +18,7 @@ CSprite::CSprite(const ltex_t* _pTexture, int _iHFrames, int _iVFrames)
     , m_vPosition(0.0f, 0.0f)
     , m_fAngle(0.0f)
     , m_vScale(1.0f, 1.0f)
-    , m_vPivot(0.5f, 0.5f)
+    , m_vPivot(0.0f, 0.0f)
 {}
 
 void CSprite::SetCallback(CallbackFunc _fFunction) {

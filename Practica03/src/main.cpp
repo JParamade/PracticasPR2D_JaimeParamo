@@ -8,6 +8,9 @@
 
 using namespace std;
 
+constexpr unsigned int WINDOW_WIDTH = 1200u;
+constexpr unsigned int WINDOW_HEIGHT = 800u;
+
 ltex_t* LoadTexture(const char* _sFilename) {
     int iWidth, iHeight;
 	
@@ -31,10 +34,35 @@ ltex_t* LoadTexture(const char* _sFilename) {
 }
 
 int main() {
-    ltex_t* pTestTexture = LoadTexture("../data/bee_anim.png");
+    ltex_t* pTestTexture = LoadTexture("./data/bee_anim.png");
     CSprite oSprite = CSprite(pTestTexture);
 
-    
+    if (!glfwInit()) {
+        static_cast<void>(fprintf(stderr, "Failed to initialize GLFW3.\n"));
+        return -1;
+    }
+
+    GLFWwindow* pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Textures Test", nullptr, nullptr);
+    if (!pWindow) {
+        static_cast<void>(fprintf(stderr, "Failed to open GLFW3 window.\n"));
+        glfwTerminate();
+        return -1;
+    }
+    glfwMakeContextCurrent(pWindow);
+
+    lgfx_setup2d(WINDOW_WIDTH, WINDOW_HEIGHT);
+
+    while (!glfwWindowShouldClose(pWindow)) {
+        lgfx_clearcolorbuffer(0.0f, 0.0f, 0.0f);
+        
+        oSprite.Draw();
+        
+        glfwSwapBuffers(pWindow);
+        glfwPollEvents();
+    }
+
+    glfwDestroyWindow(pWindow);
+    glfwTerminate();
     
     return 0;
 }
