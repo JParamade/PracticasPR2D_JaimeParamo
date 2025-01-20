@@ -202,8 +202,9 @@ void CSprite::Update(float _fDeltaTime) {
 }
 
 void CSprite::Draw() const {
-    const float fU = trunc(remainder(m_fCurrentFrame, static_cast<float>(m_iHFrames)))  * GetSize().GetX();
-    const float fV = trunc(m_fCurrentFrame / static_cast<float>(m_iVFrames)) * GetSize().GetY();
+    int iFrameIndex = static_cast<int>(m_fCurrentFrame);
+    const float fU = static_cast<float>(iFrameIndex % m_iHFrames) * GetSize().GetX();
+    const float fV = static_cast<float>(iFrameIndex / m_iVFrames) * GetSize().GetY();
     
     lgfx_setblend(m_eMode);
     lgfx_setcolor(m_fR, m_fG, m_fB, m_fA);

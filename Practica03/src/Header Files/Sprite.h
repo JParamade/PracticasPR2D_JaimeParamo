@@ -4,9 +4,6 @@
 #include "Vec2.h"
 
 class CTexture {
-private:
-    void LoadTexture(const char* _sFilename);
-    ltex_t* m_pTexture = nullptr;
 public:
     CTexture(const char* _sFilename);
     ~CTexture();
@@ -17,8 +14,10 @@ public:
     CTexture(CTexture&& _rOther) noexcept;
     CTexture& operator=(CTexture&& _rOther) noexcept;
     
-    
     ltex_t* GetTexture() const;
+private:
+    void LoadTexture(const char* _sFilename);
+    ltex_t* m_pTexture = nullptr;
 };
 
 class CSprite {
