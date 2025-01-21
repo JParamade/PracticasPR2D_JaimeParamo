@@ -30,7 +30,7 @@ int main() {
 
     while (!glfwWindowShouldClose(pWindow)) {
         lgfx_clearcolorbuffer(0.0f, 0.0f, 0.0f);
-        
+
         oSprite.Draw();
         
         glfwSwapBuffers(pWindow);

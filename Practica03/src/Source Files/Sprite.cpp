@@ -210,13 +210,3 @@ void CSprite::Draw() const {
     lgfx_setcolor(m_fR, m_fG, m_fB, m_fA);
     ltex_drawrotsized(m_pTexture, m_vPosition.GetX(), m_vPosition.GetY(), m_fAngle, m_vPivot.GetX(), m_vPivot.GetY(), GetSize().GetX(),GetSize().GetY(),fU,fV, fU + GetSize().GetX(), fV + GetSize().GetY());
 }
-
-
-
-
-
-
-
-
-
-
