@@ -192,8 +192,6 @@ void CSprite::Update(float _fDeltaTime) {
     if (m_fFunction) {
         m_fFunction(*this, _fDeltaTime);
         
-        
-        
         if (m_fCurrentFrame > static_cast<float>(m_iHFrames)) m_fCurrentFrame = 0;
         if (m_fCurrentFrame < 0) m_fCurrentFrame = static_cast<float>(m_iHFrames);
         
