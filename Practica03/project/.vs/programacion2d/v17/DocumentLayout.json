@@ -1,9 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "G:\\U-TAD\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\project\\",
+  "WorkspaceRootPath": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{12C74402-E6BB-4B59-A4A7-43EEAE9E5D6A}|programacion2d.vcxproj|G:\\U-TAD\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{12C74402-E6BB-4B59-A4A7-43EEAE9E5D6A}|programacion2d.vcxproj|H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\Source Files\\Sprite.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12C74402-E6BB-4B59-A4A7-43EEAE9E5D6A}|programacion2d.vcxproj|H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\Header Files\\Sprite.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12C74402-E6BB-4B59-A4A7-43EEAE9E5D6A}|programacion2d.vcxproj|H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{12C74402-E6BB-4B59-A4A7-43EEAE9E5D6A}|programacion2d.vcxproj|H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\lib\\litegfx.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,19 +22,58 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "main.cpp",
-              "DocumentMoniker": "G:\\U-TAD\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\main.cpp",
-              "RelativeDocumentMoniker": "..\\src\\main.cpp",
-              "ToolTip": "G:\\U-TAD\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\main.cpp",
-              "RelativeToolTip": "..\\src\\main.cpp",
+              "DocumentIndex": 3,
+              "Title": "litegfx.h",
+              "DocumentMoniker": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\lib\\litegfx.h",
+              "RelativeDocumentMoniker": "..\\lib\\litegfx.h",
+              "ToolTip": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\lib\\litegfx.h",
+              "RelativeToolTip": "..\\lib\\litegfx.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-13T18:01:47.443Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Sprite.h",
+              "DocumentMoniker": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\Header Files\\Sprite.h",
+              "RelativeDocumentMoniker": "..\\src\\Header Files\\Sprite.h",
+              "ToolTip": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\Header Files\\Sprite.h",
+              "RelativeToolTip": "..\\src\\Header Files\\Sprite.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-09-13T18:01:46.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Sprite.cpp",
+              "DocumentMoniker": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\Source Files\\Sprite.cpp",
+              "RelativeDocumentMoniker": "..\\src\\Source Files\\Sprite.cpp",
+              "ToolTip": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\Source Files\\Sprite.cpp",
+              "RelativeToolTip": "..\\src\\Source Files\\Sprite.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-01-19T04:42:45.812Z",
+              "WhenOpened": "2025-09-13T18:01:39.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "main.cpp",
+              "DocumentMoniker": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\main.cpp",
+              "RelativeDocumentMoniker": "..\\src\\main.cpp",
+              "ToolTip": "H:\\U-tad\\Programa Avanzado en Programacion de Videojuegos\\Programacion 2D\\PracticasPR2D_JaimeParamo\\Practica03\\src\\main.cpp",
+              "RelativeToolTip": "..\\src\\main.cpp",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAwAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-09-13T18:01:38.151Z",
               "EditorCaption": ""
             }
           ]
