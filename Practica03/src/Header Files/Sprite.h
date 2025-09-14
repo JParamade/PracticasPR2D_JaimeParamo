@@ -56,7 +56,7 @@ public:
     int GetVFrames() const;
     int GetFps() const;
     void SetFps(int _iFps);
-    float GetCurrentFrame() const;
+    int GetCurrentFrame() const;
     void SetCurrentFrame(int _iFrame);
 
     // Execution Functions
@@ -65,7 +65,8 @@ public:
 private:
     const ltex_t* m_pTexture;
     int m_iHFrames, m_iVFrames;
-    float m_fCurrentFrame;
+    int m_iCurrentFrame;
+    float m_fFrameTime;
     int m_iFps;
 
     CallbackFunc m_fFunction;
