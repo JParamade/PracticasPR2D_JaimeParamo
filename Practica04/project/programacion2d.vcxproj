@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Source Files\CircleCollider.cpp" />
+    <ClCompile Include="..\src\Source Files\Collider.cpp" />
+    <ClCompile Include="..\src\Source Files\PixelsCollider.cpp" />
+    <ClCompile Include="..\src\Source Files\RectCollider.cpp" />
     <ClCompile Include="..\src\Source Files\Sprite.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -101,6 +105,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\litegfx.h" />
+    <ClInclude Include="..\src\Header Files\CircleCollider.h" />
+    <ClInclude Include="..\src\Header Files\Collider.h" />
+    <ClInclude Include="..\src\Header Files\PixelsCollider.h" />
+    <ClInclude Include="..\src\Header Files\RectCollider.h" />
     <ClInclude Include="..\src\Header Files\Sprite.h" />
     <ClInclude Include="..\src\Header Files\Vec2.h" />
   </ItemGroup>

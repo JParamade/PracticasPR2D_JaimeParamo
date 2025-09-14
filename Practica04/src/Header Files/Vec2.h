@@ -45,6 +45,7 @@ public:
     CVec2& Sub(float _fX, float _fY);
     CVec2& Mul(float _fValue);
     CVec2& Div(float _fValue);
+
 private:
     float m_fX;
     float m_fY;
