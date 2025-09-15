@@ -20,6 +20,7 @@ void CTexture::LoadTexture(const char* _sFilename) {
     return;
   }
 
+
   ltex_setpixels(pTexture, sBuffer);
   stbi_image_free(sBuffer);
 

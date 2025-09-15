@@ -1,7 +1,7 @@
 #pragma once
 
 // Integer
-class uint8_t;
+#include <cstdint>
 
 // Vector
 class CVec2;
