@@ -1,7 +1,7 @@
 #include "../Header Files/RectCollider.h"
 
 bool CRectCollider::Collides(const CCollider& _rOther) const {
-  return false;
+  return _rOther.Collides(m_vRectPos, m_vRectSize);
 }
 
 bool CRectCollider::Collides(const CVec2& _rCirclePos, float _fCircleRadius) const {

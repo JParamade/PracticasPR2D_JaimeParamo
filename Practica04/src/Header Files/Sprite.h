@@ -3,6 +3,13 @@
 #include "litegfx.h"
 #include "Vec2.h"
 
+enum CollisionType {
+  COLLISION_NONE,
+  COLLISION_CIRCLE,
+  COLLISION_RECT,
+  COLLISION_PIXELS
+};
+
 class CTexture {
 public:
     CTexture(const char* _sFilename);

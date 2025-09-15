@@ -1,7 +1,7 @@
 #include "../Header Files/PixelsCollider.h"
 
 bool CPixelsCollider::Collides(const CCollider& _rOther) const {
-  return false;
+  return _rOther.Collides(m_vPixelsPos, m_vPixelsSize, m_pPixels);
 }
 
 bool CPixelsCollider::Collides(const CVec2& _rCirclePos, float _fCircleRadius) const {
