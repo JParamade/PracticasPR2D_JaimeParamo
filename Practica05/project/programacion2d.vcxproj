@@ -23,6 +23,7 @@
     <ClCompile Include="..\src\Source Files\CircleCollider.cpp" />
     <ClCompile Include="..\src\Source Files\Collider.cpp" />
     <ClCompile Include="..\src\Source Files\CollisionChecks.cpp" />
+    <ClCompile Include="..\src\Source Files\Font.cpp" />
     <ClCompile Include="..\src\Source Files\PixelsCollider.cpp" />
     <ClCompile Include="..\src\Source Files\RectCollider.cpp" />
     <ClCompile Include="..\src\Source Files\Sprite.cpp">
@@ -109,6 +110,7 @@
     <ClInclude Include="..\src\Header Files\CircleCollider.h" />
     <ClInclude Include="..\src\Header Files\Collider.h" />
     <ClInclude Include="..\src\Header Files\CollisionChecks.h" />
+    <ClInclude Include="..\src\Header Files\Font.h" />
     <ClInclude Include="..\src\Header Files\PixelsCollider.h" />
     <ClInclude Include="..\src\Header Files\RectCollider.h" />
     <ClInclude Include="..\src\Header Files\Sprite.h" />

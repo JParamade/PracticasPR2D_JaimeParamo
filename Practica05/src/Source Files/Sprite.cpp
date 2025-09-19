@@ -1,6 +1,7 @@
-﻿#define STB_IMAGE_IMPLEMENTATION
+﻿#include "../Header Files/Sprite.h"
 
-#include "../Header Files/Sprite.h"
+// Graphics
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 // Algorithm

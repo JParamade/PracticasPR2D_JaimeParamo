@@ -1,13 +1,16 @@
 ﻿#pragma once
 
-#include "litegfx.h"
-#include "Vec2.h"
-
 // Collision
 class CCollider;
 
+// Graphics
+#include "litegfx.h"
+
 // Integer
 #include <cstdint>
+
+// Vector
+#include "Vec2.h"
 
 enum ECollisionType {
   COLLISION_NONE,
