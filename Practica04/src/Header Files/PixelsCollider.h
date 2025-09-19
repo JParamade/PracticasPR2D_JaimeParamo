@@ -10,6 +10,9 @@
 
 class CPixelsCollider : public CCollider {
 public:
+  CPixelsCollider(const CVec2& _vPixelsPos, const CVec2& _vPixelsSize, const uint8_t* _pPixels);
+  ~CPixelsCollider() = default;
+
   virtual bool Collides(const CCollider& _rOther) const override;
   virtual bool Collides(const CVec2& _rCirclePos, float _fCircleRadius) const override;
   virtual bool Collides(const CVec2& _rRectPos, const CVec2& _rRectSize) const override;

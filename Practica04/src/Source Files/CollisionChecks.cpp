@@ -45,7 +45,7 @@ namespace Collision {
   bool CheckCirclePixels(const CVec2& _rCirclePos, float _fCircleRadius, const CVec2& _rPixelsPos, const CVec2& _rPixelsSize, const uint8_t* _pPixels) {
     for (int iPixelY = 0; iPixelY < static_cast<int>(_rPixelsSize.GetY()); ++iPixelY) {
       for (int iPixelX = 0; iPixelX < static_cast<int>(_rPixelsSize.GetX()); ++iPixelX) {
-        uint8_t iAlpha = _pPixels[iPixelY * static_cast<int>(_rPixelsSize.GetX()) + iPixelX];
+        uint8_t iAlpha = _pPixels[(iPixelY * static_cast<int>(_rPixelsSize.GetX()) + iPixelX) * 4 + 3];
         if (iAlpha == 0) continue;
 
         CVec2 vPixelPos = CVec2(_rPixelsPos.GetX() + iPixelX, _rPixelsPos.GetY() + iPixelY);
@@ -75,8 +75,8 @@ namespace Collision {
         int iPixelPosX2 = iPixelX - static_cast<int>(_rPixelsPos2.GetX());
         int iPixelPosY2 = iPixelY - static_cast<int>(_rPixelsPos2.GetY());
 
-        uint8_t iAlpha1 = _pPixels1[iPixelPosY1 * static_cast<int>(_rPixelsSize1.GetX()) + iPixelPosX1];
-        uint8_t iAlpha2 = _pPixels2[iPixelPosY2 * static_cast<int>(_rPixelsSize2.GetX()) + iPixelPosX2];
+        uint8_t iAlpha1 = _pPixels1[(iPixelPosY1 * static_cast<int>(_rPixelsSize1.GetX()) + iPixelPosX1) * 4 + 3];
+        uint8_t iAlpha2 = _pPixels2[(iPixelPosY2 * static_cast<int>(_rPixelsSize2.GetX()) + iPixelPosX2) * 4 + 3];
 
         if (iAlpha1 != 0 && iAlpha2 != 0) return true;
       }
@@ -88,7 +88,7 @@ namespace Collision {
   bool CheckPixelsRect(const CVec2& _rPixelsPos, const CVec2& _rPixelsSize, const uint8_t* _pPixels, const CVec2& _rRectPos, const CVec2& _rRectSize) {
     for (int iPixelY = 0; iPixelY < static_cast<int>(_rPixelsSize.GetY()); ++iPixelY) {
       for (int iPixelX = 0; iPixelX < static_cast<int>(_rPixelsSize.GetX()); ++iPixelX) {
-        uint8_t iAlpha = _pPixels[iPixelY * static_cast<int>(_rPixelsSize.GetX()) + iPixelX];
+        uint8_t iAlpha = _pPixels[(iPixelY * static_cast<int>(_rPixelsSize.GetX()) + iPixelX) * 4 + 3];
         if (iAlpha == 0) continue;
 
         CVec2 vPixelPos = CVec2(_rPixelsPos.GetX() + iPixelX, _rPixelsPos.GetY() + iPixelY);

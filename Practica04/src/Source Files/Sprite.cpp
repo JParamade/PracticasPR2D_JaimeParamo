@@ -2,6 +2,17 @@
 
 #include "../Header Files/Sprite.h"
 #include "stb_image.h"
+
+// Algorithm
+#include <algorithm>
+
+// Collision
+#include "../Header Files/Collider.h"
+#include "../Header Files/CircleCollider.h"
+#include "../Header Files/RectCollider.h"
+#include "../Header Files/PixelsCollider.h"
+
+// Math
 #include <cmath>
 
 void CTexture::LoadTexture(const char* _sFilename) {
@@ -71,8 +82,23 @@ CSprite::CSprite(const ltex_t* _pTexture, int _iHFrames, int _iVFrames)
   , m_fAngle(0.f)
   , m_vScale(1.f, 1.f)
   , m_vPivot(.5f, .5f)
-{
+  , m_eCollisionType(COLLISION_NONE)
+  , m_pCollider(nullptr)
+{}
+
+CSprite::~CSprite() {
+  if (m_pPixelsBuffer) {
+    delete[] m_pPixelsBuffer;
+    m_pPixelsBuffer = nullptr;
+  }
+
+  if (m_pCollider) {
+    delete m_pCollider;
+    m_pCollider = nullptr;
+  }
 }
+
+// Callback
 
 void CSprite::SetCallback(CallbackFunc _fFunction) {
   m_fFunction = _fFunction;
@@ -133,6 +159,8 @@ const CVec2& CSprite::GetPosition() const {
 
 void CSprite::SetPosition(const CVec2& _vPos) {
   m_vPosition = _vPos;
+
+  if (m_pCollider) SetCollisionType(m_eCollisionType);
 }
 
 float CSprite::GetAngle() const {
@@ -149,6 +177,8 @@ const CVec2& CSprite::GetScale() const {
 
 void CSprite::SetScale(const CVec2& _vScale) {
   m_vScale = _vScale;
+
+  if (m_pCollider) SetCollisionType(m_eCollisionType);
 }
 
 CVec2 CSprite::GetSize() const {
@@ -231,4 +261,59 @@ void CSprite::Draw() const {
     fU, fV,
     fU + fFrameWidth, fV + fFrameHeight
   );
+}
+
+void CSprite::SetCollisionType(ECollisionType _eType) {
+  m_eCollisionType = _eType;
+
+  if (m_pCollider) {
+    delete m_pCollider;
+    m_pCollider = nullptr;
+  }
+
+  CVec2 vTopLeft = m_vPosition - CVec2(GetSize().GetX() * m_vPivot.GetX(), GetSize().GetY() * m_vPivot.GetY());
+
+  switch (m_eCollisionType) {
+    case ECollisionType::COLLISION_CIRCLE: {
+      if (!m_pTexture) return;
+
+      float fRadius = std::max(GetSize().GetX(), GetSize().GetY()) * 0.5f;
+      
+      m_pCollider = new CCircleCollider(m_vPosition, fRadius);
+
+      break;
+    }
+    case ECollisionType::COLLISION_PIXELS: {
+      if (!m_pTexture) return;
+
+      m_pPixelsBuffer = new uint8_t[m_pTexture->width * m_pTexture->height * 4];
+      ltex_getpixels(m_pTexture, m_pPixelsBuffer);
+
+      m_pCollider = new CPixelsCollider(vTopLeft, GetSize(), m_pPixelsBuffer);
+
+      break;
+    }
+    case ECollisionType::COLLISION_RECT: {
+      if (!m_pTexture) return;
+      
+      m_pCollider = new CRectCollider(vTopLeft, GetSize());
+
+      break;
+    }
+    case ECollisionType::COLLISION_NONE: break;
+  }
+}
+
+ECollisionType CSprite::GetCollisionType() const {
+  return m_eCollisionType;
+}
+
+const CCollider* CSprite::GetCollider() const {
+  return m_pCollider;
+}
+
+bool CSprite::Collides(const CSprite& _rOther) const {
+  if (!m_pCollider) return false;
+
+  return m_pCollider->Collides(*(_rOther.m_pCollider));
 }

@@ -15,7 +15,7 @@ int main() {
     return -1;
   }
 
-  GLFWwindow* pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Textures Test", nullptr, nullptr);
+  GLFWwindow* pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Animation Test", nullptr, nullptr);
   if (!pWindow) {
     static_cast<void>(fprintf(stderr, "Failed to open GLFW3 window.\n"));
     glfwTerminate();

@@ -7,6 +7,9 @@
 
 class CRectCollider : public CCollider {
 public:
+  CRectCollider(const CVec2& _vRectPos, const CVec2& _vRectSize);
+  ~CRectCollider() = default;
+
   virtual bool Collides(const CCollider& _rOther) const override;
   virtual bool Collides(const CVec2& _rCirclePos, float _fCircleRadius) const override;
   virtual bool Collides(const CVec2& _rRectPos, const CVec2& _rRectSize) const override;

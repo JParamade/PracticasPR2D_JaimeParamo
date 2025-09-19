@@ -3,7 +3,13 @@
 #include "litegfx.h"
 #include "Vec2.h"
 
-enum CollisionType {
+// Collision
+class CCollider;
+
+// Integer
+#include <cstdint>
+
+enum ECollisionType {
   COLLISION_NONE,
   COLLISION_CIRCLE,
   COLLISION_RECT,
@@ -33,6 +39,9 @@ class CSprite {
 
 public:
     CSprite(const ltex_t* _pTexture, int _iHFrames = 1, int _iVFrames = 1);
+    ~CSprite();
+    
+    // Callback
     void SetCallback(CallbackFunc _fFunction);
 
     // Texture Data
@@ -72,6 +81,12 @@ public:
     void Update(float _fDeltaTime);
     void Draw() const;
 
+    // Collision
+    void SetCollisionType(ECollisionType _eType);
+    ECollisionType GetCollisionType() const;
+    const CCollider* GetCollider() const;
+    bool Collides(const CSprite& _rOther) const;
+
 private:
     const ltex_t* m_pTexture;
     int m_iHFrames, m_iVFrames;
@@ -89,4 +104,9 @@ private:
     float m_fAngle;
     CVec2 m_vScale;
     CVec2 m_vPivot;
+
+    uint8_t* m_pPixelsBuffer = nullptr;
+
+    ECollisionType m_eCollisionType;
+    CCollider* m_pCollider;
 };
