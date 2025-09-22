@@ -104,6 +104,7 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="..\src\Source Files\Vec2.cpp" />
+    <ClCompile Include="..\src\Source Files\World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\lib\litegfx.h" />
@@ -115,6 +116,7 @@
     <ClInclude Include="..\src\Header Files\RectCollider.h" />
     <ClInclude Include="..\src\Header Files\Sprite.h" />
     <ClInclude Include="..\src\Header Files\Vec2.h" />
+    <ClInclude Include="..\src\Header Files\World.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
