@@ -40,6 +40,7 @@ public:
 
   const CVec2& GetCameraPosition() const;
   void SetCameraPosition(const CVec2& _rPos);
+  void CenterCameraOn(const CVec2& _rTarget, const CVec2& _rScreenSize);
 
   void AddSprite(CSprite& _rSprite);
   void RemoveSprite(CSprite& _rSprite);
