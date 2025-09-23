@@ -1,10 +1,16 @@
 #pragma once
 
+// PugiXML
+#include "pugixml.hpp"
+
 // Graphics
 #include "litegfx.h"
 
 // Sprite
 #include "Sprite.h"
+
+// STL
+#include <vector>
 
 // Vector
 #include "Vec2.h"
@@ -17,6 +23,17 @@ struct SLayer {
   CVec2 m_vScrollSpeed = { 0.f, 0.f };
   CVec2 m_vScrollOffset = { 0.f, 0.f };
 };
+
+inline std::string ExtractPath(const std::string& _rFilename)
+{
+  std::string sFilenameCopy = _rFilename;
+  while (sFilenameCopy.find("\\") != std::string::npos) sFilenameCopy.replace(sFilenameCopy.find("\\"), 1, "/");
+  
+  sFilenameCopy = sFilenameCopy.substr(0, sFilenameCopy.rfind('/'));
+  if (sFilenameCopy.size() > 0) sFilenameCopy += "/";
+
+  return sFilenameCopy;
+}
 
 class CWorld {
 public:
@@ -48,15 +65,34 @@ public:
   void Update(float _fDeltaTime);
   void Draw(const CVec2& _rScreenSize);
 
+  bool LoadMap(const char* _sFilename, uint16_t _uFirstColliderId);
+  CVec2 GetMapSize() const;
+
+  bool MoveSprite(CSprite& _rSprite, const CVec2& _rAmount);
+
 private:
+  // Background Color
   float m_fClearRed;
   float m_fClearGreen;
   float m_fClearBlue;
 
+  // Background Textures
   SLayer m_lLayers[4];
 
+  // Camera
   CVec2 m_vCameraPosition;
 
+  // Sprites
   CSprite** m_lWorldSprites;
   unsigned int m_uSpriteCount;
+
+  // Map
+  CVec2 m_vMapSize;
+  CVec2 m_vTileSize;
+  CVec2 m_vTilesetSize;
+
+  // Tileset
+  std::vector<int> m_lTiles;
+  CTexture m_oTilesetTexture;
+  const ltex_t* m_pTilesetTexture;
 };

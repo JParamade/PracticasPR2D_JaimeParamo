@@ -21,6 +21,7 @@ enum ECollisionType {
 
 class CTexture {
 public:
+    CTexture();
     CTexture(const char* _sFilename);
     ~CTexture();
     

@@ -39,6 +39,10 @@ void CTexture::LoadTexture(const char* _sFilename) {
   m_pTexture = pTexture;
 }
 
+CTexture::CTexture() {
+
+}
+
 CTexture::CTexture(const char* _sFilename) {
   LoadTexture(_sFilename);
 }

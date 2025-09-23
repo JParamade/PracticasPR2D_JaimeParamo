@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\lib\pugixml.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\Source Files\CircleCollider.cpp" />
     <ClCompile Include="..\src\Source Files\Collider.cpp" />

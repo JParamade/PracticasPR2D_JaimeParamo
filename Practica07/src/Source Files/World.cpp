@@ -6,6 +6,11 @@ CWorld::CWorld(float _fClearRed, float _fClearGreen, float _fClearBlue, const lt
   , m_fClearBlue(_fClearBlue)
   , m_lWorldSprites(nullptr)
   , m_uSpriteCount(0)
+  , m_vMapSize({ 0.f, 0.f })
+  , m_vTileSize({ 0.f, 0.f })
+  , m_vTilesetSize({ 0.f, 0.f })
+  , m_oTilesetTexture()
+  , m_pTilesetTexture(nullptr)
 {
   m_lLayers[0].m_pBackground = _pBack0;
   m_lLayers[1].m_pBackground = _pBack1;
@@ -145,6 +150,7 @@ void CWorld::Update(float _fDeltaTime) {
 void CWorld::Draw(const CVec2& _rScreenSize) {
   // Paint background color.
   lgfx_clearcolorbuffer(m_fClearRed, m_fClearGreen, m_fClearBlue);
+  lgfx_setblend(BLEND_ALPHA);
 
   // Draw background sprites.
   for (int i = 0; i < 4; ++i) {
@@ -173,6 +179,39 @@ void CWorld::Draw(const CVec2& _rScreenSize) {
   // Adjust camera position.
   lgfx_setorigin(m_vCameraPosition.GetX(), m_vCameraPosition.GetY());
 
+  // Draw map tiles.
+  for (int iY = 0; iY < static_cast<int>(m_vMapSize.GetY()); ++iY) {
+    for (int iX = 0; iX < static_cast<int>(m_vMapSize.GetX()); ++iX) {
+      int iTileId = m_lTiles[iY * m_vMapSize.GetX() + iX];
+      if (iTileId > 0) {
+        int iTilesetColumns = static_cast<int>(m_vTilesetSize.GetX()) / static_cast<int>(m_vTileSize.GetX());
+        int iTilesetRow = (iTileId - 1) / iTilesetColumns;
+        int iTilesetColumn = (iTileId - 1) % iTilesetColumns;
+
+        float fCornerPosX = iTilesetColumn * m_vTileSize.GetX();
+        float fCornerPosY = iTilesetRow * m_vTileSize.GetY();
+
+        float fPositionX = iX * m_vTileSize.GetX();
+        float fPositionY = iY * m_vTileSize.GetY();
+
+        float fCoordU0 = fCornerPosX / m_vTilesetSize.GetX();
+        float fCoordV0 = fCornerPosY / m_vTilesetSize.GetY();
+        float fCoordU1 = (fCornerPosX + m_vTileSize.GetX()) / m_vTilesetSize.GetX();
+        float fCoordV1 = (fCornerPosY + m_vTileSize.GetY()) / m_vTilesetSize.GetY();
+
+        ltex_drawrotsized(
+          m_pTilesetTexture, 
+          fPositionX + m_vTileSize.GetX() * 0.5f,
+          fPositionY + m_vTileSize.GetY() * 0.5f,
+          0.f,
+          .5f, .5f,
+          m_vTileSize.GetX(), m_vTileSize.GetY(), 
+          fCoordU0, fCoordV0, fCoordU1, fCoordV1
+        );
+      }
+    }
+  }
+
   // Draw sprites.
   for (unsigned int uIndex = 0; uIndex < m_uSpriteCount; ++uIndex) {
     m_lWorldSprites[uIndex]->Draw();
@@ -180,4 +219,66 @@ void CWorld::Draw(const CVec2& _rScreenSize) {
 
   // Reset origin.
   lgfx_setorigin(0, 0);
+}
+
+bool CWorld::LoadMap(const char* _sFilename, uint16_t _uFirstColliderId) {
+  pugi::xml_document oDocument;
+  
+  pugi::xml_parse_result oResult = oDocument.load_file(_sFilename);
+  if (!oResult) {
+    static_cast<void>(fprintf(stderr, "Failed to load map: %s.\n", oResult.description()));
+    return false;
+  }
+
+  pugi::xml_node oMapNode = oDocument.child("map");
+  if (!oMapNode) {
+    fprintf(stderr, "Invalid TMX file: missing <map>\n");
+    return false;
+  }
+
+  m_vMapSize = CVec2(oMapNode.attribute("width").as_float(), oMapNode.attribute("height").as_float());
+  m_vTileSize = CVec2(oMapNode.attribute("tilewidth").as_float(), oMapNode.attribute("tileheight").as_float());
+
+  pugi::xml_node oTilesetNode = oMapNode.child("tileset");
+  if (oTilesetNode) {
+    pugi::xml_node oImageNode = oTilesetNode.child("image");
+    if (oImageNode) {
+      std::string sSource = oImageNode.attribute("source").as_string();
+
+      std::string sBasePath = ExtractPath(_sFilename);
+      std::string sTilesetPath = sBasePath + sSource;
+
+      m_oTilesetTexture = CTexture(sTilesetPath.c_str());
+      m_pTilesetTexture = m_oTilesetTexture.GetTexture();
+      if (!m_pTilesetTexture) {
+        fprintf(stderr, "Failed to load tileset texture: %s\n", sTilesetPath.c_str());
+        return false;
+      }
+
+      m_vTilesetSize = CVec2(oImageNode.attribute("width").as_float(), oImageNode.attribute("height").as_float());
+    }
+  }
+
+  pugi::xml_node oLayerNode = oMapNode.child("layer");
+  if (oLayerNode) {
+    pugi::xml_node oDataNode = oLayerNode.child("data");
+    if (oDataNode) {
+      m_lTiles.reserve(m_vMapSize.GetX() * m_vMapSize.GetY());
+
+      for (pugi::xml_node oTileNode = oDataNode.child("tile"); oTileNode; oTileNode = oTileNode.next_sibling("tile")) {
+        int iGID = oTileNode.attribute("gid").as_int();
+        m_lTiles.push_back(iGID);
+      }
+    }
+  }
+
+  return true;
+}
+
+CVec2 CWorld::GetMapSize() const {
+  return CVec2(m_vMapSize.GetX() * m_vTileSize.GetX(), m_vMapSize.GetY() * m_vTileSize.GetY());
+}
+
+bool CWorld::MoveSprite(CSprite& _rSprite, const CVec2& _rAmount) {
+  return false;
 }

@@ -23,7 +23,7 @@ int main() {
     return -1;
   }
 
-  GLFWwindow* pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Font Test", nullptr, nullptr);
+  GLFWwindow* pWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "World Test", nullptr, nullptr);
   if (!pWindow) {
     static_cast<void>(fprintf(stderr, "Failed to open GLFW3 window.\n"));
     glfwTerminate();
