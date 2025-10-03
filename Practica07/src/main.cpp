@@ -51,6 +51,9 @@ int main() {
     return -1;
   }
 
+  CTexture oCharacterTexture = CTexture("./data/idle.png");
+  CSprite oCharacterSprite = CSprite(oCharacterTexture.GetTexture());
+
   // Delta Time Variables
   float fLastTime = glfwGetTime();
 
