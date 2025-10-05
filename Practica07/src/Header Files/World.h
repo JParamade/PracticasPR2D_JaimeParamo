@@ -69,6 +69,7 @@ public:
   CVec2 GetMapSize() const;
 
   bool MoveSprite(CSprite& _rSprite, const CVec2& _rAmount);
+  bool CheckTileCollision(const CSprite& _rSprite) const;
 
 private:
   // Background Color

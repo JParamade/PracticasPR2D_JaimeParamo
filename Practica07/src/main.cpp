@@ -51,8 +51,20 @@ int main() {
     return -1;
   }
 
-  CTexture oCharacterTexture = CTexture("./data/idle.png");
-  CSprite oCharacterSprite = CSprite(oCharacterTexture.GetTexture());
+  CTexture oIdleTexture = CTexture("./data/idle.png");
+  CTexture oRunTexture = CTexture("./data/run.png");
+  CSprite oPlayerSprite = CSprite(oIdleTexture.GetTexture());
+  oPlayerSprite.SetPosition({ WINDOW_WIDTH * .5f, WINDOW_HEIGHT * .5f });
+  oPlayerSprite.SetCollisionType(COLLISION_RECT);
+
+  oWorld.AddSprite(oPlayerSprite);
+
+  // Movement Variables
+  CVec2 vVelocity = CVec2(.0f, .0f);
+  float fGravity = 500.f;
+  float fSpeed = 200.f;
+  float fJumpForce = 300.f;
+  bool bGrounded = true;
 
   // Delta Time Variables
   float fLastTime = glfwGetTime();
@@ -64,6 +76,40 @@ int main() {
     float fElapsedTime = glfwGetTime();
     float fDeltaTime = static_cast<float>(fElapsedTime - fLastTime);
     fLastTime = fElapsedTime;
+
+    vVelocity.SetY(vVelocity.GetY() + fGravity * fDeltaTime);
+
+    if (glfwGetKey(pWindow, GLFW_KEY_LEFT) == GLFW_PRESS) {
+      vVelocity.SetX(-fSpeed);
+      oPlayerSprite.SetFlipX(true);
+    }
+    else if (glfwGetKey(pWindow, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+      vVelocity.SetX(fSpeed);
+      oPlayerSprite.SetFlipX(false);
+    }
+    else vVelocity.SetX(0.f);
+
+    if (glfwGetKey(pWindow, GLFW_KEY_SPACE) == GLFW_PRESS && bGrounded) {
+      vVelocity.SetY(-fJumpForce);
+      bGrounded = false; 
+    }
+
+    bool bCollided = oWorld.MoveSprite(oPlayerSprite, vVelocity * fDeltaTime);
+    if (bCollided) {
+      if (vVelocity.GetY() > 0.f) {
+        vVelocity.SetY(0.f);
+        bGrounded = true;
+      }
+    }
+
+    if ((fabs(vVelocity.GetX()) > 0) && bGrounded) {
+      oPlayerSprite.SetTexture(oRunTexture.GetTexture(), 6, 1);
+      oPlayerSprite.SetFps(8);
+    }
+    else {
+      oPlayerSprite.SetTexture(oIdleTexture.GetTexture());
+      oPlayerSprite.SetFps(0);
+    }
 
     oWorld.Update(fDeltaTime);
     oWorld.Draw({ WINDOW_WIDTH, WINDOW_HEIGHT });

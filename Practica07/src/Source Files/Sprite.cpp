@@ -121,6 +121,8 @@ const ltex_t* CSprite::GetTexture() const {
 
 void CSprite::SetTexture(const ltex_t* _pTexture, int _iHFrames, int _iVFrames) {
   m_pTexture = _pTexture;
+  m_iHFrames = _iHFrames;
+  m_iVFrames = _iVFrames;
 }
 
 // Blending Mode & Color
@@ -201,6 +203,14 @@ void CSprite::SetPivot(const CVec2& _vPivot) {
   m_vPivot = _vPivot;
 }
 
+void CSprite::SetFlipX(bool _bFlip) {
+  m_bFlipX = _bFlip;
+}
+
+bool CSprite::GetFlipX() const {
+  return m_bFlipX;
+}
+
 // Additional Data
 
 int CSprite::GetHFrames() const {
@@ -249,11 +259,15 @@ void CSprite::Update(float _fDeltaTime) {
 void CSprite::Draw() const {
   if (!m_pTexture) return;
 
-  const float fFrameWidth = 1.0f / m_iHFrames;
-  const float fFrameHeight = 1.0f / m_iVFrames;
+  const float fFrameWidth = 1.f / m_iHFrames;
+  const float fFrameHeight = 1.f / m_iVFrames;
 
-  const float fU = static_cast<float>(m_iCurrentFrame % m_iHFrames) * fFrameWidth;
-  const float fV = static_cast<float>(m_iCurrentFrame / m_iVFrames) * fFrameHeight;
+  float fU0 = static_cast<float>(m_iCurrentFrame % m_iHFrames) * fFrameWidth;
+  float fV0 = static_cast<float>(m_iCurrentFrame / m_iVFrames) * fFrameHeight;
+  float fU1 = fU0 + fFrameWidth;
+  float fV1 = fV0 + fFrameHeight;
+
+  if (m_bFlipX) std::swap(fU0, fU1);
 
   lgfx_setblend(m_eMode);
   lgfx_setcolor(m_fR, m_fG, m_fB, m_fA);
@@ -263,8 +277,8 @@ void CSprite::Draw() const {
     m_fAngle,
     m_vPivot.GetX(), m_vPivot.GetY(),
     GetSize().GetX(), GetSize().GetY(),
-    fU, fV,
-    fU + fFrameWidth, fV + fFrameHeight
+    fU0, fV0,
+    fU1, fV1
   );
 }
 

@@ -73,6 +73,10 @@ public:
     const CVec2& GetPivot() const;
     void SetPivot(const CVec2& _vPivot);
 
+    // Others
+    void SetFlipX(bool _bFlip);
+    bool GetFlipX() const;
+
     // Additional Data
     int GetHFrames() const;
     int GetVFrames() const;
@@ -108,6 +112,7 @@ private:
     float m_fAngle;
     CVec2 m_vScale;
     CVec2 m_vPivot;
+    bool m_bFlipX = false;
 
     uint8_t* m_pPixelsBuffer = nullptr;
 

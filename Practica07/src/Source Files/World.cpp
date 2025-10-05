@@ -1,5 +1,12 @@
 #include "../Header Files/World.h"
 
+// Collision
+#include "../Header Files/Collider.h"
+#include "../Header Files/RectCollider.h"
+
+// Math
+#include <cmath>
+
 CWorld::CWorld(float _fClearRed, float _fClearGreen, float _fClearBlue, const ltex_t* _pBack0, const ltex_t* _pBack1, const ltex_t* _pBack2, const ltex_t* _pBack3)
   : m_fClearRed(_fClearRed)
   , m_fClearGreen(_fClearGreen)
@@ -280,5 +287,58 @@ CVec2 CWorld::GetMapSize() const {
 }
 
 bool CWorld::MoveSprite(CSprite& _rSprite, const CVec2& _rAmount) {
+  bool bCollision = false;
+
+  CVec2 vOldPos = _rSprite.GetPosition();
+
+  _rSprite.SetPosition({ vOldPos.GetX() + _rAmount.GetX(), vOldPos.GetY() });
+  if (CheckTileCollision(_rSprite)) {
+    _rSprite.SetPosition({ vOldPos.GetX(), _rSprite.GetPosition().GetY() });
+    bCollision = true;
+  }
+
+  _rSprite.SetPosition({ _rSprite.GetPosition().GetX(), vOldPos.GetY() + _rAmount.GetY() });
+  if (CheckTileCollision(_rSprite)) {
+    _rSprite.SetPosition({ _rSprite.GetPosition().GetX(), vOldPos.GetY() });
+    bCollision = true;
+  }
+
+  return bCollision;
+}
+
+bool CWorld::CheckTileCollision(const CSprite& _rSprite) const {
+  if (!_rSprite.GetCollider()) return false;
+
+  CVec2 vSpriteSize = _rSprite.GetSize();
+  CVec2 vSpritePos = _rSprite.GetPosition();
+
+  const CCollider* pSpriteCollider = _rSprite.GetCollider();
+
+  float fLeft = vSpritePos.GetX() - vSpriteSize.GetX() * _rSprite.GetPivot().GetX();
+  float fTop = vSpritePos.GetY() - vSpriteSize.GetY() * _rSprite.GetPivot().GetY();
+  float fRight = fLeft + vSpriteSize.GetX();
+  float fBottom = fTop + vSpriteSize.GetY();
+
+  int iStartX = static_cast<int>(std::floor(fLeft / m_vTileSize.GetX()));
+  int iEndX = static_cast<int>(std::floor((fRight - 1) / m_vTileSize.GetX()));
+  int iStartY = static_cast<int>(std::floor(fTop / m_vTileSize.GetY()));
+  int iEndY = static_cast<int>(std::floor((fBottom - 1) / m_vTileSize.GetY()));
+
+  for (int iIndexY = iStartY; iIndexY <= iEndY; ++iIndexY) {
+    for (int iIndexX = iStartX; iIndexX <= iEndX; ++iIndexX) {
+      if (iIndexX < 0 || iIndexY < 0 || iIndexX >= m_vMapSize.GetX() || iIndexY >= m_vMapSize.GetY())
+        continue;
+
+      int iTileId = m_lTiles[iIndexY * m_vMapSize.GetX() + iIndexX];
+
+      if (iTileId > 0) {
+        CVec2 vTilePos(iIndexX * m_vTileSize.GetX(), iIndexY * m_vTileSize.GetY());
+        CRectCollider oTileCollider(vTilePos, m_vTileSize);
+
+        if (pSpriteCollider->Collides(oTileCollider)) return true;
+      }
+    }
+  }
+
   return false;
 }
